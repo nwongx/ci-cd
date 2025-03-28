@@ -4,27 +4,32 @@ on:
   push:
     branches: ["main"]
 
+env:
+  global-env: "Global Environment Variable"
+
 jobs:
   build-app:
     runs-on: ubuntu-latest
-
+    env:
+      local-env: "Local Environment Variable"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo "$global-env"
 
       - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project
+        run: echo "${{env.global-env}}"
+
+      - name: Run a multi-line script
+        run: echo "${{env.local-env}}"
   
   build-api:
     needs: build-app
     runs-on: windows-latest
     steps:
-      - run: echo "Hello build api"
+      - run: echo "$global-env"
 
   build-db:
     needs: build-app
