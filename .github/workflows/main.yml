@@ -5,31 +5,31 @@ on:
     branches: ["main"]
 
 env:
-  global-env: "Global Environment Variable"
+  GLOBAL_ENV: "Global Environment Variable"
 
 jobs:
   build-app:
     runs-on: ubuntu-latest
     env:
-      local-env: "Local Environment Variable"
+      LOCAL_ENV: "Local Environment Variable"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Run a one-line script
-        run: echo "$global-env"
+        run: echo "$GLOBAL_ENV"
 
       - name: Run a multi-line script
-        run: echo "${{env.global-env}}"
+        run: echo "${{env.GLOBAL_ENV}}"
 
       - name: Run a multi-line script
-        run: echo "${{env.local-env}}"
+        run: echo "${{env.LOCAL_ENV}}"
   
   build-api:
     needs: build-app
     runs-on: windows-latest
     steps:
-      - run: echo "$global-env"
+      - run: echo "$LOCAL_ENV"
 
   build-db:
     needs: build-app
