@@ -6,6 +6,6 @@ jobs:
   SET_EGITHUB_ENV_DEMO:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "KEY=VALUE" >> $GITHUD_ENV
+      - run: echo "KEY=VALUE" >> $GITHUB_ENV
       
       - run: echo "${{ env.KEY }}"
