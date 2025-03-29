@@ -1,0 +1,11 @@
+name: workflow dispatch github env
+
+on: workflow_dispatch
+
+jobs:
+  SET_EGITHUB_ENV_DEMO:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "KEY=VALUE" >> $GITHUN_ENV
+      
+      - run: echo "${{ env.KEY }}"

@@ -4,11 +4,19 @@ on:
   push:
     branches: ["main"]
 
+
 env:
   GLOBAL_ENV: "Global Environment Variable"
 
+
+
 jobs:
+  check-skip-ci:
+    runs-on: ununtu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'skip-ci') }}
+
   build-app:
+    needs: check-skip-ci
     runs-on: ubuntu-latest
     env:
       LOCAL_ENV: "Local Environment Variable"
@@ -26,19 +34,19 @@ jobs:
         run: echo "${{env.LOCAL_ENV}}"
   
   build-api:
-    needs: build-app
+    needs: [check-skip-ci, build-app]
     runs-on: windows-latest
     steps:
       - run: echo "$LOCAL_ENV"
 
   build-db:
-    needs: build-app
+    needs: [check-skip-ci, build-app]
     runs-on: windows-latest
     steps:
       - run: echo "Hello Windows"
   
   package:
-    needs: [build-app, build-db]
+    needs: [check-skip-ci, build-app, build-db]
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello Ubuntu"
