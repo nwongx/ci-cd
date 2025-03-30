@@ -1,0 +1,19 @@
+name: SHARE_ENV
+on: workflow_dispatch
+jobs:
+  JOB_1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: DECLARING_ENV
+        run: echo "TEST=Shared String" >> $GITHUB_ENV
+
+      - name: GET_SHARED_ENV_IN_SAME_JOB
+        run: echo "TEST=${{ env.TEST }}"
+    
+  JOB_2:
+    runs-on: unbuntu-latest
+
+    steps:
+      - name: GET_SHARED_ENV_IN_DIFF_JOB
+        run: echo "TEST=${{ env.TEST }}"
