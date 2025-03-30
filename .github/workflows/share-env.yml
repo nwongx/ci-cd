@@ -16,15 +16,15 @@ jobs:
 
       - name: SET_OUTPUT
         id: set_output
-        run: echo "::set-output name=value1::VALUE1"
+        run: echo "value1=VALUE_1" >> $GITHUB_OUTPUT
     
   JOB_2:
     needs: JOB_1
     runs-on: unbuntu-latest
 
     steps:
-      - name: GET_SHARED_ENV_IN_DIFF_JOB
-        run: echo "TEST=${{ env.TEST }}"
+      # - name: GET_SHARED_ENV_IN_DIFF_JOB
+      #   run: echo "TEST=${{ env.TEST }}"
 
       - name: GET_OUTPUT
         run: echo "output1:${{ needs.JOB_1.outputs.output1 }}"
