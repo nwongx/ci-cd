@@ -20,7 +20,7 @@ jobs:
     
   JOB_2:
     needs: JOB_1
-    runs-on: unbuntu-latest
+    runs-on:  ubuntu-latest
 
     steps:
       # - name: GET_SHARED_ENV_IN_DIFF_JOB
