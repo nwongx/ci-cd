@@ -4,16 +4,28 @@ jobs:
   JOB_1:
     runs-on: ubuntu-latest
 
+    outputs:
+      output1: ${{ steps.set_output.outputs.value1 }}
+
     steps:
       - name: DECLARING_ENV
         run: echo "TEST=Shared String" >> $GITHUB_ENV
 
       - name: GET_SHARED_ENV_IN_SAME_JOB
         run: echo "TEST=${{ env.TEST }}"
+
+      - name: SET_OUTPUT
+        id: set_output
+        run: echo "::set-output name=value1::VALUE1"
     
   JOB_2:
+    needs: JOB_1
     runs-on: unbuntu-latest
 
     steps:
       - name: GET_SHARED_ENV_IN_DIFF_JOB
         run: echo "TEST=${{ env.TEST }}"
+
+      - name: GET_OUTPUT
+        run: echo "output1:${{ needs.JOB_1.outputs.output1 }}"
+
